@@ -227,3 +227,47 @@
   document.addEventListener('scroll', navmenuScrollspy);
 
 })();
+
+
+
+
+// sistema de correo
+document.addEventListener("DOMContentLoaded", function () {
+
+emailjs.init("LLYDVYIwfjxesogNy");
+
+const formulario = document.getElementById("contactForm");
+
+if (!formulario) return; // 🔥 si no existe, salimos
+
+formulario.addEventListener("submit", async function (e) {
+
+e.preventDefault();
+
+document.querySelector(".loading").style.display = "block";
+
+try {
+
+await emailjs.sendForm(
+"service_ahbzbfp",
+"template_m6z92v9",
+this,
+);
+
+document.querySelector(".loading").style.display = "none";
+document.querySelector(".sent-message").style.display = "block";
+
+formulario.reset();
+
+} catch (error) {
+
+document.querySelector(".loading").style.display = "none";
+document.querySelector(".error-message").style.display = "block";
+
+console.log(error);
+
+}
+
+});
+
+});
